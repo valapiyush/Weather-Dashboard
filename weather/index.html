@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <style>
+                body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(45deg, #3498db, #2ecc71, #e74c3c, #9b59b6);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s infinite alternate;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 50%;
+            margin: 50px auto;
+            text-align: center;
+            background-color: rgba(44, 62, 80, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            animation: fadeIn 1s forwards, slideIn 1s forwards;
+        }
+
+        h1 {
+            color: #ecf0f1;
+        }
+
+        .search-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        input {
+            width: 50%;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+            background-color: rgba(46, 204, 113, 0.8);
+            color: #fff;
+            margin: 10px;
+        }
+
+        input:hover,
+        input:focus {
+            background-color: rgba(46, 204, 113, 1);
+            color: #333;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #2ecc71;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #27ae60;
+        }
+
+        #weatherInfo {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: rgba(52, 73, 94, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            animation: fadeIn 1s forwards, slideIn 1s forwards;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+            }
+
+            to {
+                transform: translateY(0);
+            }
+        }
+    </style>
+    <title>Weather Dashboard</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Weather Dashboard</h1>
+        <div class="search-container">
+            <input type="text" id="locationInput" placeholder="Enter location">
+            <button onclick="getWeather()">Get Weather</button>
+        </div>
+        <div id="weatherInfo"></div>
+    </div>
+    <!-- <script src="script.js"></script> -->
+    <script>
+        const apiKey = 'b17a41257f2f4a04a39183722240503';
+const weatherInfoDiv = document.getElementById('weatherInfo');
+
+async function getWeather() {
+    const locationInput = document.getElementById('locationInput');
+    const location = locationInput.value.trim();
+
+    if (location === '') {
+        alert('Please enter a location');
+        return;
+    }
+
+    const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${location}`;
+
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        if (response.status === 400 || response.status === 404) {
+            alert('Location not found. Please try again.');
+            return;
+        }
+
+        displayWeather(data);
+    } catch (error) {
+        console.error('Error fetching weather data:', error);
+        alert('Error fetching weather data. Please try again.');
+    }
+}
+
+function displayWeather(data) {
+            const { location, current } = data;
+
+            const weatherHtml = `
+                <h2>${location.name} Weather</h2>
+                <p>Temperature: ${current.temp_c}°C &#x1F321;</p>
+                <p>Humidity: ${current.humidity}% &#x1F4A7;</p>
+                <p>Condition: ${current.condition.text}</p>
+                <p>Wind: ${current.wind_kph} km/h &#127788;</p>
+            `;
+
+    weatherInfoDiv.innerHTML = weatherHtml;
+}
+
+    </script>
+</body>
+
+</html>

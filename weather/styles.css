@@ -1,0 +1,105 @@
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(45deg, #3498db, #2ecc71, #e74c3c, #9b59b6);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s infinite alternate;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 50%;
+            margin: 50px auto;
+            text-align: center;
+            background-color: rgba(44, 62, 80, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            animation: fadeIn 1s forwards, slideIn 1s forwards;
+        }
+
+        h1 {
+            color: #ecf0f1;
+        }
+
+        .search-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        input {
+            width: 50%;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+            background-color: rgba(46, 204, 113, 0.8);
+            color: #fff;
+            margin: 10px;
+        }
+
+        input:hover,
+        input:focus {
+            background-color: rgba(46, 204, 113, 1);
+            color: #333;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #2ecc71;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #27ae60;
+        }
+
+        #weatherInfo {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: rgba(52, 73, 94, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            animation: fadeIn 1s forwards, slideIn 1s forwards;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+            }
+
+            to {
+                transform: translateY(0);
+            }
+        }
